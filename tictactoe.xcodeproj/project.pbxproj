@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		819B5C4C170DEC980079B713 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819B5C4B170DEC980079B713 /* main.cpp */; };
+		81023614170E008B0036CCC8 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81023613170E008B0036CCC8 /* SDL.framework */; };
+		81023616170E009C0036CCC8 /* SDL_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81023615170E009C0036CCC8 /* SDL_image.framework */; };
+		81023618170E00A80036CCC8 /* SDL_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81023617170E00A80036CCC8 /* SDL_ttf.framework */; };
+		8102361A170E00AE0036CCC8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81023619170E00AE0036CCC8 /* Cocoa.framework */; };
+		8102361C170E00B60036CCC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8102361B170E00B60036CCC8 /* Foundation.framework */; };
+		8102361F170E13560036CCC8 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8102361E170E134E0036CCC8 /* SDLMain.m */; };
+		819B5C4C170DEC980079B713 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 819B5C4B170DEC980079B713 /* main.mm */; };
 		819B5C4E170DEC980079B713 /* tictactoe.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 819B5C4D170DEC980079B713 /* tictactoe.1 */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +31,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		81023613170E008B0036CCC8 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = ../SDL/SDL.framework; sourceTree = "<group>"; };
+		81023615170E009C0036CCC8 /* SDL_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_image.framework; path = ../SDL/SDL_image.framework; sourceTree = "<group>"; };
+		81023617170E00A80036CCC8 /* SDL_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL_ttf.framework; path = ../SDL/SDL_ttf.framework; sourceTree = "<group>"; };
+		81023619170E00AE0036CCC8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		8102361B170E00B60036CCC8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8102361D170E134E0036CCC8 /* SDLMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		8102361E170E134E0036CCC8 /* SDLMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
 		819B5C48170DEC980079B713 /* tictactoe */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tictactoe; sourceTree = BUILT_PRODUCTS_DIR; };
-		819B5C4B170DEC980079B713 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		819B5C4B170DEC980079B713 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		819B5C4D170DEC980079B713 /* tictactoe.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = tictactoe.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -35,6 +48,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8102361C170E00B60036CCC8 /* Foundation.framework in Frameworks */,
+				8102361A170E00AE0036CCC8 /* Cocoa.framework in Frameworks */,
+				81023618170E00A80036CCC8 /* SDL_ttf.framework in Frameworks */,
+				81023616170E009C0036CCC8 /* SDL_image.framework in Frameworks */,
+				81023614170E008B0036CCC8 /* SDL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,8 +62,15 @@
 		819B5C3F170DEC980079B713 = {
 			isa = PBXGroup;
 			children = (
+				8102361B170E00B60036CCC8 /* Foundation.framework */,
+				81023619170E00AE0036CCC8 /* Cocoa.framework */,
+				81023617170E00A80036CCC8 /* SDL_ttf.framework */,
+				81023615170E009C0036CCC8 /* SDL_image.framework */,
+				81023613170E008B0036CCC8 /* SDL.framework */,
 				819B5C4A170DEC980079B713 /* tictactoe */,
 				819B5C49170DEC980079B713 /* Products */,
+				8102361D170E134E0036CCC8 /* SDLMain.h */,
+				8102361E170E134E0036CCC8 /* SDLMain.m */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,7 +85,7 @@
 		819B5C4A170DEC980079B713 /* tictactoe */ = {
 			isa = PBXGroup;
 			children = (
-				819B5C4B170DEC980079B713 /* main.cpp */,
+				819B5C4B170DEC980079B713 /* main.mm */,
 				819B5C4D170DEC980079B713 /* tictactoe.1 */,
 			);
 			path = tictactoe;
@@ -117,7 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				819B5C4C170DEC980079B713 /* main.cpp in Sources */,
+				8102361F170E13560036CCC8 /* SDLMain.m in Sources */,
+				819B5C4C170DEC980079B713 /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +210,10 @@
 		819B5C52170DEC980079B713 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../SDL\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -191,6 +221,10 @@
 		819B5C53170DEC980079B713 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../SDL\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -214,6 +248,7 @@
 				819B5C53170DEC980079B713 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
