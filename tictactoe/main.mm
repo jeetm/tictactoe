@@ -55,6 +55,7 @@ bool init()
     return true;
 }
 
+//Load Image Function
 SDL_Surface* loadImages(std:: string filename, bool colorKey)
 {
     SDL_Surface* inputImage = NULL;
@@ -80,7 +81,7 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey)
     return outputImage;
 }
 
-
+//Function which loads all necessary files
 bool loadFiles()
 {
     gameGrid = loadImages("grid.png", false);
@@ -102,6 +103,7 @@ bool loadFiles()
     return true;
 }
 
+//Function that takes in images and offsets and applies them
 bool applySurface (int x, int y, SDL_Surface* source, SDL_Surface* dest)
 {
     SDL_Rect offset;
@@ -117,6 +119,7 @@ bool applySurface (int x, int y, SDL_Surface* source, SDL_Surface* dest)
     return true;
 }
 
+//Quits all related systems
 void quitProgram()
 {
     TTF_CloseFont(myfont);
@@ -124,6 +127,7 @@ void quitProgram()
     SDL_Quit();
 }
 
+//Main Progam
 int main(int argc, char ** argv)
 {
     
