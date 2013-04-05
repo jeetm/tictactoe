@@ -50,6 +50,8 @@ bool init()
         return false;
     }
     
+    SDL_WM_SetCaption("Tic Tac Toe", NULL);
+    
     return true;
 }
 
