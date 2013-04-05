@@ -24,6 +24,8 @@ SDL_Surface* gameGrid = NULL;
 
 //Font Declaration
 TTF_Font* myfont = NULL;
+SDL_Surface* titleMessage = NULL;
+SDL_Color titleColor = {255, 255, 255};
 
 //Event Declaration
 SDL_Event event;
@@ -88,7 +90,7 @@ bool loadFiles()
         return false;
     }
     
-    myfont = TTF_OpenFont("stocky.TTF", 26);
+    myfont = TTF_OpenFont("stocky.TTF", 50);
     
     if (myfont == NULL)
     {
@@ -136,9 +138,12 @@ int main(int argc, char ** argv)
         return -1;
     }
     
+    titleMessage = TTF_RenderText_Solid(myfont, "Tic Tac Toe", titleColor);
+    
     applySurface(0, 0, gameGrid, screen);
     applySurface(0, 0, xToken, screen);
     applySurface(200, 200, oToken, screen);
+    applySurface(160, 0, titleMessage, screen);
     
     SDL_Flip(screen);
     
