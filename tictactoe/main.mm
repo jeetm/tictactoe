@@ -67,7 +67,7 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey)
            //Code for Color keying
             if (colorKey == true)
             {
-                Uint32 key = SDL_MapRGB(outputImage->format, 255, 0, 254);
+                Uint32 key = SDL_MapRGB(outputImage->format, 255, 0, 255);
                 SDL_SetColorKey(outputImage, SDL_SRCCOLORKEY, key);
             }
         }
