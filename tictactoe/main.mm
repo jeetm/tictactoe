@@ -27,6 +27,10 @@ TTF_Font* myfont = NULL;
 SDL_Surface* titleMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
 
+//Game-Related Variables
+bool squareOccupied;
+int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
+
 //Event Declaration
 SDL_Event event;
 
@@ -79,6 +83,12 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey)
     }
     
     return outputImage;
+}
+
+//Function that will handle all events
+void handleEvents(SDL_Event event)
+{
+    
 }
 
 //Function which loads all necessary files
