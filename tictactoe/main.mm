@@ -30,9 +30,10 @@ bool squaresOccupied[9] = {false};
 int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
 std::vector<int> squaresFilledO;
 std::vector<int> squaresFilledX;
-int allPossibleCombinations[9] = {1,2,3,4,5,6,7,8,9};
+char allPossibleCombinations[9];
 int kArray[3];
 int turnNumber;
+int columnSumX, columnSumO, rowSumX, rowSumO, diagSumX, diagSumO = 0;
 
 //Event Declaration
 SDL_Event event;
@@ -207,30 +208,21 @@ void numConverter (int squareNumber, int &offsetX, int &offsetY)
 }
 
 //Function that check's if there is a winner and returns whether its a winning combination or not
-bool checkWinner()
+int CheckForWinner( char spaces[9] )
 {
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            
-        }
-    }
-}
-
-//Function which inserts elements into a specfic array
-void insert_at(int arr[], int n, int idx, int val)
-{
-    if (idx==-1) arr[n] = val;  // append
-    else {
-        for(int i = n; i > idx; i--)
-            arr[i] = arr[i-1];
-        arr[idx] = val;
-    }
+	//Check Rows
+	for( int i = 0; i < 3; i+=3 )
+	{
+        if ( spaces[i] == 'X' && spaces[i+1] == 'X' && spaces[i+2] == 'X')
+            return 1;
+        else if ( spaces[i] == 'O' && spaces[i+1] == 'O' && spaces[i+2] == 'O')
+            return 2;
+	}
+    return 0;
 }
 
 //Function that prints to the console all elements of an array, needed for de-bugging purposes
-void printArray( const std::vector<int> &array)
+void printVector( const std::vector<int> &array)
 {
     for(int i=0; i<array.size(); ++i)
         std::cout << array[i] << " ";
@@ -238,66 +230,19 @@ void printArray( const std::vector<int> &array)
     std::cout << "----------------"<<std::endl;
 }
 
-void combinations(int A[],int comb[], int start, int n, int current_k,int k)
+void printArray(char array[])
 {
-    if(k < 0)
-        return;
-    
-    // Base case just print all the numbers 1 at a time
-    if(k==0)
+    int num = sizeof(array) / sizeof(array[0]);
+    for (int i = 0; i < num; i++)
     {
-        for(int i =0;i < n;i ++ )
-            std::cout << A[i] << "-";
-        std::cout << std::endl;
-    }
-    
-    // current_k goes from 0 to k-1 and simulates a total of
-    // k iterations
-    if(current_k < k)
-    {
-        // if current_k = 0, and k = 3 (i.e. we need to find combinations of 4)
-        // then we need to leave out 3 numbers from the end because there are 3
-        // more nested loops
-        for(int i= start;i < n- (k-current_k);i ++ )
-        {
-            // Store the number in the comb array and recursively call with the remaining sub-array
-            comb[current_k] = A[i];
-            // This will basically pass a sub array starting at index 'start' and going till n-1
-            combinations(A,comb,i-1,n,current_k-1,k);
-        }
-    }
-    else if(current_k == k)
-    {
-        for(int i=start;i < n;i ++ )
-        {
-            comb[current_k] = A[i];
-            for(int j = 0;j <= k;j ++ )
-                std::cout << comb[j]  <<  "-";
-            std::cout << std::endl;
-        }
-    }
-    else
-        return;
-}
-
-//All possible combinations
-void everyPossibleCombination(int array[])
-{
-    for (int k = 0; k <= 9-3; k++)
-    {
-        for(int i=k-2; i<= 9-2; i++)
-        {
-            for(int j=i-1; j <= 9-1; j++)
-            {
-                std::cout << array[i] << array[j] << std::endl;
-            }
-        }
+        std::cout << array[i];
     }
 }
 
 //Function that handles game logic
 void gameLogic(int squareNum, int &turnNum)
 {
+    int winner;
     int offsetX, offsetY = 0;
     if (turnNum % 2 != 0)
     {
@@ -310,10 +255,17 @@ void gameLogic(int squareNum, int &turnNum)
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, oToken, screen);
                     squaresFilledO.push_back(squareNum);
-                    printArray(squaresFilledO);
-                    combinations(allPossibleCombinations, kArray, 0, 9, 0, 2);
+                    printVector(squaresFilledO);
                     turnNum++;
                     squaresOccupied[i] = true;
+                    allPossibleCombinations[squareNum] = 'O';
+                    printArray(allPossibleCombinations);
+                    winner = CheckForWinner(allPossibleCombinations);
+                    if (winner == 2)
+                    {
+                        std::cout << "O is the winner";
+                        break;
+                    }
                 }
             }
         }
@@ -328,9 +280,16 @@ void gameLogic(int squareNum, int &turnNum)
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, xToken, screen);
                     squaresFilledX.push_back(squareNum);
-                    printArray(squaresFilledX);
+                    printVector(squaresFilledX);
                     turnNum++;
                     squaresOccupied[i] = true;
+                    allPossibleCombinations[squareNum] = 'X';
+                    winner = CheckForWinner(allPossibleCombinations);
+                    if (winner == 1)
+                    {
+                        std::cout << "X is the winner";
+                        break;
+                    }
                 }
             }
         }
