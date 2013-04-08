@@ -1,10 +1,7 @@
-//
 //  main.mm
 //  tictactoe
-//
 //  Created by Jeet Mehta on 2013-04-04.
 //  Copyright (c) 2013 Jeet Mehta. All rights reserved.
-//
 
 #include <iostream>
 #include <vector>
@@ -34,7 +31,6 @@ int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3
 std::vector<int> squaresFilledO;
 std::vector<int> squaresFilledX;
 int turnNumber;
-
 
 //Event Declaration
 SDL_Event event;
@@ -89,7 +85,6 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey)
     
     return outputImage;
 }
-
 
 //Function that checks which square was clicked
 int checkSquareNumber (int locationX, int locationY)
@@ -209,6 +204,7 @@ void numConverter (int squareNumber, int &offsetX, int &offsetY)
     }
 }
 
+//Function that check's if there is a winner and returns whether its a winning combination or not
 bool checkWinner()
 {
     for (int i = 0; i < 8; i++)
@@ -220,8 +216,28 @@ bool checkWinner()
     }
 }
 
+//Function which inserts elements into a specfic array
+void insert_at(int arr[], int n, int idx, int val)
+{
+    if (idx==-1) arr[n] = val;  // append
+    else {
+        for(int i = n; i > idx; i--)
+            arr[i] = arr[i-1];
+        arr[idx] = val;
+    }
+}
+
+//Function that prints to the console all elements of an array, needed for de-bugging purposes
+void printArray( const std::vector<int> &array)
+{
+    for(int i=0; i<array.size(); ++i)
+        std::cout << array[i] << " ";
+    std::cout <<std::endl;
+    std::cout << "----------------"<<std::endl;
+}
+
 //Function that handles game logic
-void gameLogic(int squareNum, int turnNum)
+void gameLogic(int squareNum, int &turnNum)
 {
     int offsetX, offsetY = 0;
     if (turnNum % 2 != 0)
@@ -234,7 +250,9 @@ void gameLogic(int squareNum, int turnNum)
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, oToken, screen);
-                    squaresFilledO.push_back(1);
+                    squaresFilledO.push_back(squareNum);
+                    printArray(squaresFilledO);
+                    turnNum++;
                     squaresOccupied[i] = true;
                 }
             }
@@ -249,6 +267,9 @@ void gameLogic(int squareNum, int turnNum)
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, xToken, screen);
+                    squaresFilledX.push_back(squareNum);
+                    printArray(squaresFilledX);
+                    turnNum++;
                     squaresOccupied[i] = true;
                 }
             }
@@ -270,7 +291,6 @@ void handleEvents(SDL_Event event)
             
             squareClicked = checkSquareNumber(x, y);
             gameLogic(squareClicked, turnNumber);
-            turnNumber++;
         }
     }
 }
@@ -296,7 +316,6 @@ bool loadFiles()
 
     return true;
 }
-
 
 //Quits all related systems
 void quitProgram()
