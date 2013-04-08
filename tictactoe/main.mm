@@ -28,16 +28,9 @@ SDL_Surface* titleMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
 
 //Game-Related Variables
-bool square1Occupied;
-bool square2Occupied;
-bool square3Occupied;
-bool square4Occupied;
-bool square5Occupied;
-bool square6Occupied;
-bool square7Occupied;
-bool square8Occupied;
-bool square9Occupied;
+bool squaresOccupied[9] = {false};
 int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
+int squaresFilled[8][3];
 int turnNumber;
 
 
@@ -101,55 +94,46 @@ int checkSquareNumber (int locationX, int locationY)
 {
     if (locationX > 0 &&  locationX < 200 && (locationY > 0 &&  locationY < 200))
     {
-        std::cout << "square1";
         return 1;
     }
     
     if (locationX > 200 &&  locationX < 400 && (locationY > 0 &&  locationY < 200))
     {
-        std::cout << "square1";
         return 2;
     }
     
     if (locationX > 400 &&  locationX < 600 && (locationY > 0 &&  locationY < 200))
     {
-        std::cout << "square2";
         return 3;
     }
     
     if (locationX > 0 &&  locationX < 200 && (locationY > 200 &&  locationY < 400))
     {
-        std::cout << "square3";
         return 4;
     }
     
     if (locationX > 200 &&  locationX < 400 && (locationY > 200 &&  locationY < 400))
     {
-        std::cout << "square5";
         return 5;
     }
     
     if (locationX > 400 &&  locationX < 600 && (locationY > 200 &&  locationY < 400))
     {
-        std::cout << "square6";
         return 6;
     }
     
     if (locationX > 0 &&  locationX < 200 && (locationY > 400 &&  locationY < 600))
     {
-        std::cout << "square7";
         return 7;
     }
     
     if (locationX > 200 &&  locationX < 400 && (locationY > 400 &&  locationY < 600))
     {
-        std::cout << "square8";
         return 8;
     }
     
     if (locationX > 400 &&  locationX < 600 && (locationY > 400 &&  locationY < 600))
     {
-        std::cout << "square9";
         return 9;
     }
     
@@ -223,78 +207,48 @@ void numConverter (int squareNumber, int &offsetX, int &offsetY)
     }
 }
 
-//Sets the correct variable to be occupied
-bool squareOccupied (int squareNumber)
+bool checkWinner()
 {
-    if (squareNumber == 1)
+    for (int i = 0; i < 8; i++)
     {
-        square1Occupied = true;
-        return square1Occupied;
+        for (int j = 0; j < 3; j++)
+        {
+            
+        }
     }
-    if (squareNumber == 2)
-    {
-        square2Occupied = true;
-        return square2Occupied;
-    }
-    if (squareNumber == 3)
-    {
-        square3Occupied = true;
-        return square3Occupied;
-    }
-    if (squareNumber == 4)
-    {
-        square4Occupied = true;
-        return square4Occupied;
-    }
-    if (squareNumber == 5)
-    {
-        square5Occupied = true;
-        return square5Occupied;
-    }
-    if (squareNumber == 6)
-    {
-        square6Occupied = true;
-        return square6Occupied;
-    }
-    if (squareNumber == 7)
-    {
-        square7Occupied = true;
-        return square7Occupied;
-    }
-    if (squareNumber == 8)
-    {
-        square8Occupied = true;
-        return square8Occupied;
-    }
-    if (squareNumber == 9)
-    {
-        square9Occupied = true;
-        return square9Occupied;
-    }
-    return false;
 }
 
-//Function that handle's game logic
+//Function that handles game logic
 void gameLogic(int squareNum, int turnNum)
 {
     int offsetX, offsetY = 0;
     if (turnNum % 2 != 0)
     {
-        bool occupied1 = false;
-        if (occupied1 == false)
+        for (int i = 1; i <= 9; i++)
         {
-            numConverter(squareNum, offsetX, offsetY);
-            applySurface(offsetX, offsetY, oToken, screen);
-            occupied1 = squareOccupied(squareNum);
+            if (squareNum == i)
+            {
+                if (squaresOccupied[i] == false)
+                {
+                    numConverter(squareNum, offsetX, offsetY);
+                    applySurface(offsetX, offsetY, oToken, screen);
+                    squaresOccupied[i] = true;
+                }
+            }
         }
     }
     else {
-        bool occupied2 = false;
-        if (occupied2 == false)
+        for (int i = 1; i <= 9; i++)
         {
-            numConverter(squareNum, offsetX, offsetY);
-            applySurface(offsetX, offsetY, xToken, screen);
-            occupied2 = squareOccupied(squareNum);
+            if (squareNum == i)
+            {
+                if (squaresOccupied[i] == false)
+                {
+                    numConverter(squareNum, offsetX, offsetY);
+                    applySurface(offsetX, offsetY, xToken, screen);
+                    squaresOccupied[i] = true;
+                }
+            }
         }
     }
 }
@@ -311,7 +265,6 @@ void handleEvents(SDL_Event event)
             x = event.button.x;
             y = event.button.y;
             
-            std::cout << "Recognized that left-click was done";
             squareClicked = checkSquareNumber(x, y);
             gameLogic(squareClicked, turnNumber);
             turnNumber++;
@@ -353,8 +306,6 @@ void quitProgram()
 //Main Progam
 int main(int argc, char ** argv)
 {
-    
-    std::cout << "in main";
     
     bool quit = false;
     
