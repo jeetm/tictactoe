@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <vector>
 #include <SDL/SDL.h>
 #include <SDL_image/SDL_image.h>
 #include <SDL_ttf/SDL_ttf.h>
@@ -30,7 +31,8 @@ SDL_Color titleColor = {255, 255, 255};
 //Game-Related Variables
 bool squaresOccupied[9] = {false};
 int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
-int squaresFilled[8][3];
+std::vector<int> squaresFilledO;
+std::vector<int> squaresFilledX;
 int turnNumber;
 
 
@@ -232,6 +234,7 @@ void gameLogic(int squareNum, int turnNum)
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, oToken, screen);
+                    squaresFilledO.push_back(1);
                     squaresOccupied[i] = true;
                 }
             }
