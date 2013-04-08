@@ -30,6 +30,8 @@ SDL_Color titleColor = {255, 255, 255};
 //Game-Related Variables
 bool squareOccupied;
 int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
+int turnNumber;
+
 
 //Event Declaration
 SDL_Event event;
@@ -85,10 +87,169 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey)
     return outputImage;
 }
 
+
+//Function that checks which square was clicked
+int checkSquareNumber (int locationX, int locationY)
+{
+    if (locationX > 0 &&  locationX < 200 && (locationY > 0 &&  locationY < 200))
+    {
+        std::cout << "square1";
+        return 1;
+    }
+    
+    if (locationX > 200 &&  locationX < 400 && (locationY > 0 &&  locationY < 200))
+    {
+        std::cout << "square1";
+        return 2;
+    }
+    
+    if (locationX > 400 &&  locationX < 600 && (locationY > 0 &&  locationY < 200))
+    {
+        std::cout << "square2";
+        return 3;
+    }
+    
+    if (locationX > 0 &&  locationX < 200 && (locationY > 200 &&  locationY < 400))
+    {
+        std::cout << "square3";
+        return 4;
+    }
+    
+    if (locationX > 200 &&  locationX < 400 && (locationY > 200 &&  locationY < 400))
+    {
+        std::cout << "square5";
+        return 5;
+    }
+    
+    if (locationX > 400 &&  locationX < 600 && (locationY > 200 &&  locationY < 400))
+    {
+        std::cout << "square6";
+        return 6;
+    }
+    
+    if (locationX > 0 &&  locationX < 200 && (locationY > 400 &&  locationY < 600))
+    {
+        std::cout << "square7";
+        return 7;
+    }
+    
+    if (locationX > 200 &&  locationX < 400 && (locationY > 400 &&  locationY < 600))
+    {
+        std::cout << "square8";
+        return 8;
+    }
+    
+    if (locationX > 400 &&  locationX < 600 && (locationY > 400 &&  locationY < 600))
+    {
+        std::cout << "square9";
+        return 9;
+    }
+    
+    return 0;
+}
+
+//Function that takes in images and offsets and applies them
+bool applySurface (int x, int y, SDL_Surface* source, SDL_Surface* dest)
+{
+    SDL_Rect offset;
+    
+    offset.x = x;
+    offset.y = y;
+    
+    if (SDL_BlitSurface(source, NULL, dest, &offset) == -1)
+    {
+        return false;
+    }
+    
+    SDL_Flip(screen);
+    return true;
+}
+
+//Converts square Number to offsets
+void numConverter (int squareNumber, int &offsetX, int &offsetY)
+{
+    if (squareNumber == 1)
+    {
+        offsetX = 0;
+        offsetY = 0;
+    }
+    if (squareNumber == 2)
+    {
+        offsetX = 200;
+        offsetY = 0;
+    }
+    if (squareNumber == 3)
+    {
+        offsetX = 400;
+        offsetY = 0;
+    }
+    if (squareNumber == 4)
+    {
+        offsetX = 0;
+        offsetY = 200;
+    }
+    if (squareNumber == 5)
+    {
+        offsetX = 200;
+        offsetY = 200;
+    }
+    if (squareNumber == 6)
+    {
+        offsetX = 400;
+        offsetY = 200;
+    }
+    if (squareNumber == 7)
+    {
+        offsetX = 0;
+        offsetY = 400;
+    }
+    if (squareNumber == 8)
+    {
+        offsetX = 200;
+        offsetY = 400;
+    }
+    if (squareNumber == 9)
+    {
+        offsetX = 400;
+        offsetY = 400;
+    }
+}
+
+//Function that handle's game logic
+void gameLogic(int squareNum, int turnNum, bool occupied)
+{
+    int offsetX, offsetY = 0;
+    
+    if (turnNumber % 2 != 0)
+    {
+        numConverter(squareNum, offsetX, offsetY);
+        applySurface(offsetX, offsetY, oToken, screen);
+        
+    }
+    else {
+        numConverter(squareNum, offsetX, offsetY);
+        applySurface(offsetX, offsetY, xToken, screen);
+    }
+}
+
 //Function that will handle all events
 void handleEvents(SDL_Event event)
 {
+    int x,y, squareClicked;
     
+    if (event.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if (event.button.button == SDL_BUTTON_LEFT)
+        {
+            x = event.button.x;
+            y = event.button.y;
+            
+            std::cout << "Recognized that left-click was done";
+            squareClicked = checkSquareNumber(x, y);
+            gameLogic(squareClicked, turnNumber, false);
+            turnNumber++;
+        }
+    }
 }
 
 //Function which loads all necessary files
@@ -113,21 +274,6 @@ bool loadFiles()
     return true;
 }
 
-//Function that takes in images and offsets and applies them
-bool applySurface (int x, int y, SDL_Surface* source, SDL_Surface* dest)
-{
-    SDL_Rect offset;
-    
-    offset.x = x;
-    offset.y = y;
-    
-    if (SDL_BlitSurface(source, NULL, dest, &offset) == -1)
-    {
-        return false;
-    }
-    
-    return true;
-}
 
 //Quits all related systems
 void quitProgram()
@@ -140,6 +286,8 @@ void quitProgram()
 //Main Progam
 int main(int argc, char ** argv)
 {
+    
+    std::cout << "in main";
     
     bool quit = false;
     
@@ -171,6 +319,7 @@ int main(int argc, char ** argv)
             {
                 quit = true;
             }
+            handleEvents(event);
         }
     }
     
