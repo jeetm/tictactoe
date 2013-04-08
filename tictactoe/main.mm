@@ -28,7 +28,15 @@ SDL_Surface* titleMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
 
 //Game-Related Variables
-bool squareOccupied;
+bool square1Occupied;
+bool square2Occupied;
+bool square3Occupied;
+bool square4Occupied;
+bool square5Occupied;
+bool square6Occupied;
+bool square7Occupied;
+bool square8Occupied;
+bool square9Occupied;
 int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
 int turnNumber;
 
@@ -215,20 +223,79 @@ void numConverter (int squareNumber, int &offsetX, int &offsetY)
     }
 }
 
+//Sets the correct variable to be occupied
+bool squareOccupied (int squareNumber)
+{
+    if (squareNumber == 1)
+    {
+        square1Occupied = true;
+        return square1Occupied;
+    }
+    if (squareNumber == 2)
+    {
+        square2Occupied = true;
+        return square2Occupied;
+    }
+    if (squareNumber == 3)
+    {
+        square3Occupied = true;
+        return square3Occupied;
+    }
+    if (squareNumber == 4)
+    {
+        square4Occupied = true;
+        return square4Occupied;
+    }
+    if (squareNumber == 5)
+    {
+        square5Occupied = true;
+        return square5Occupied;
+    }
+    if (squareNumber == 6)
+    {
+        square6Occupied = true;
+        return square6Occupied;
+    }
+    if (squareNumber == 7)
+    {
+        square7Occupied = true;
+        return square7Occupied;
+    }
+    if (squareNumber == 8)
+    {
+        square8Occupied = true;
+        return square8Occupied;
+    }
+    if (squareNumber == 9)
+    {
+        square9Occupied = true;
+        return square9Occupied;
+    }
+    return false;
+}
+
 //Function that handle's game logic
-void gameLogic(int squareNum, int turnNum, bool occupied)
+void gameLogic(int squareNum, int turnNum)
 {
     int offsetX, offsetY = 0;
-    
-    if (turnNumber % 2 != 0)
+    if (turnNum % 2 != 0)
     {
-        numConverter(squareNum, offsetX, offsetY);
-        applySurface(offsetX, offsetY, oToken, screen);
-        
+        bool occupied1 = false;
+        if (occupied1 == false)
+        {
+            numConverter(squareNum, offsetX, offsetY);
+            applySurface(offsetX, offsetY, oToken, screen);
+            occupied1 = squareOccupied(squareNum);
+        }
     }
     else {
-        numConverter(squareNum, offsetX, offsetY);
-        applySurface(offsetX, offsetY, xToken, screen);
+        bool occupied2 = false;
+        if (occupied2 == false)
+        {
+            numConverter(squareNum, offsetX, offsetY);
+            applySurface(offsetX, offsetY, xToken, screen);
+            occupied2 = squareOccupied(squareNum);
+        }
     }
 }
 
@@ -246,7 +313,7 @@ void handleEvents(SDL_Event event)
             
             std::cout << "Recognized that left-click was done";
             squareClicked = checkSquareNumber(x, y);
-            gameLogic(squareClicked, turnNumber, false);
+            gameLogic(squareClicked, turnNumber);
             turnNumber++;
         }
     }
@@ -305,8 +372,6 @@ int main(int argc, char ** argv)
     titleMessage = TTF_RenderText_Solid(myfont, "Tic Tac Toe", titleColor);
     
     applySurface(0, 0, gameGrid, screen);
-    applySurface(0, 0, xToken, screen);
-    applySurface(200, 200, oToken, screen);
     applySurface(160, 0, titleMessage, screen);
     
     SDL_Flip(screen);
