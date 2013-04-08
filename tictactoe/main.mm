@@ -1,5 +1,5 @@
 //
-//  main.cpp
+//  main.mm
 //  tictactoe
 //
 //  Created by Jeet Mehta on 2013-04-04.
