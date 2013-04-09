@@ -36,6 +36,8 @@ char boardX[3][3];
 char boardO[3][3];
 int turnNumber;
 int board[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
+int locationX[9][2];
+int locationO[9][2];
 bool boardFilled;
 
 //Event Declaration
@@ -261,12 +263,15 @@ void printVector( const std::vector<int> &array)
     std::cout << "----------------"<<std::endl;
 }
 
-void printArray(char array[])
+void printArray(int array[][2])
 {
-    int num = sizeof(array) / sizeof(array[0]);
-    for (int i = 0; i < num; i++)
+    //int num = sizeof(array) / sizeof(array[0]);
+    for (int i = 0; i < 9; i++)
     {
-        std::cout << array[i];
+        for (int j=0;j < 2; j++)
+        {
+            std::cout << array[i][j];
+        }
     }
 }
 
@@ -343,11 +348,24 @@ bool gameFinished()
     return false;
 }
 
+//Re-applies the images
+void reapplyImages(int locationCircle[][2], int locationCross[][2])
+{
+    for (int i = 1; i<=9; i++)
+    {
+        for (int j = 0; j < 1; j++)
+        {
+            applySurface(locationCircle[i][j], locationCircle[i][j+1], oToken, screen);
+            applySurface(locationCross[i][j], locationCross[i][j+1], xToken, screen);
+        }
+    }
+}
+
 //Function that handles game logic
-bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccured)
+bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccured, int locationX[][2], int locationO[][2])
 {
     int winner;
-    int offsetX, offsetY, oneD, twoD = 0;
+    int offsetX, counter = 0, offsetY, oneD, twoD = 0;
     bool boardFilled;
     if (turnNum % 2 != 0)
     {
@@ -362,9 +380,13 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                     squaresFilledO.push_back(squareNum);
                     printVector(squaresFilledO);
                     turnNum++;
+                    locationO[i-1][counter] = offsetX;
+                    locationO[i-1][counter+1] = offsetY;
+                    counter++;
                     squaresOccupied[i] = true;
                     boardFilled = gameFinished();
                     std::cout << boardFilled;
+                    counter++;
                     
                     boardConverter(squareNum, oneD, twoD);
                     boardO[oneD][twoD] = 'O';
@@ -396,12 +418,16 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, xToken, screen);
+                    locationX[i-1][counter] = offsetX;
+                    locationX[i-1][counter+1] = offsetY;
+                    printArray(locationX);
                     squaresFilledX.push_back(squareNum);
                     printVector(squaresFilledX);
                     turnNum++;
                     squaresOccupied[i] = true;
                     boardFilled = gameFinished();
                     std::cout << boardFilled;
+                    counter++;
                     
                     boardConverter(squareNum, oneD, twoD);
                     boardX[oneD][twoD] = 'X';
@@ -451,7 +477,7 @@ void handleEvents(SDL_Event event)
             y = event.button.y;
             
             squareClicked = checkSquareNumber(x, y);
-            quit = gameLogic(squareClicked, turnNumber, overallWinner, tieHappen);
+            quit = gameLogic(squareClicked, turnNumber, overallWinner, tieHappen, locationX, locationO);
             
             //Winner was Decided
             if (quit == true && tieHappen == false)
@@ -459,8 +485,10 @@ void handleEvents(SDL_Event event)
                 if (overallWinner == 'X')
                 {
                     winnerMessageX = TTF_RenderText_Solid(myfont, "X Has Won!", titleColor);
-                    //applySurface(0, 0, gameGrid, screen);
+                    applySurface(0, 0, gameGrid, screen);
+                    reapplyImages(locationO, locationX);
                     applySurface(160, 0, winnerMessageX, screen);
+                    SDL_Flip(screen);
                     SDL_Delay(4000);
                 }
                 quitProgram();
