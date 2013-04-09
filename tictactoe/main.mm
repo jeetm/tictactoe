@@ -26,15 +26,14 @@ SDL_Surface* titleMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
 
 //Game-Related Variables
-bool squaresOccupied[9] = {false};
-int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
+bool squaresOccupied[10] = {false};
 std::vector<int> squaresFilledO;
 std::vector<int> squaresFilledX;
 char boardX[3][3];
 char boardO[3][3];
 int turnNumber;
 int board[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
-bool boardFilled = false;
+bool boardFilled;
 
 //Event Declaration
 SDL_Event event;
@@ -321,14 +320,24 @@ void boardConverter (int squareNumber, int &oneD, int &twoD)
 //Checks if the board is filled up
 bool gameFinished()
 {
-    for (int i = 0; i < 9; i++)
+    for (int i = 1; i <= 9; i++)
     {
-        if (squaresOccupied[i] != false)
+        if (squaresOccupied[i] == true)
             boardFilled = true;
-        else
+        else if (squaresOccupied[i] == false)
+        {
             boardFilled = false;
+            return false;
+        }  
     }
-    return boardFilled;
+    
+    if (boardFilled == true)
+    {
+        std::cout << "The board is full";
+        return true;
+    }
+   
+    return false;
 }
 
 //Function that handles game logic
@@ -336,6 +345,7 @@ bool gameLogic(int squareNum, int &turnNum)
 {
     int winner;
     int offsetX, offsetY, oneD, twoD = 0;
+    bool boardFilled;
     if (turnNum % 2 != 0)
     {
         for (int i = 1; i <= 9; i++)
@@ -350,6 +360,8 @@ bool gameLogic(int squareNum, int &turnNum)
                     printVector(squaresFilledO);
                     turnNum++;
                     squaresOccupied[i] = true;
+                    boardFilled = gameFinished();
+                    std::cout << boardFilled;
                     
                     boardConverter(squareNum, oneD, twoD);
                     boardO[oneD][twoD] = 'O';
@@ -359,7 +371,7 @@ bool gameLogic(int squareNum, int &turnNum)
                         std::cout << "O has won!";
                         return true;
                     }
-                    else if (winner == 0 && gameFinished() == true)
+                    else if (winner == 0 && boardFilled == true)
                     {
                         std::cout << "It's a tie!";
                         return false;
@@ -381,6 +393,8 @@ bool gameLogic(int squareNum, int &turnNum)
                     printVector(squaresFilledX);
                     turnNum++;
                     squaresOccupied[i] = true;
+                    boardFilled = gameFinished();
+                    std::cout << boardFilled;
                     
                     boardConverter(squareNum, oneD, twoD);
                     boardX[oneD][twoD] = 'X';
@@ -390,7 +404,7 @@ bool gameLogic(int squareNum, int &turnNum)
                         std::cout << "X has won";
                         return true;
                     }
-                    else if (winner == 0 && gameFinished() == true)
+                    else if (winner == 0 && boardFilled == true)
                     {
                         std::cout << "It's a tie!";
                         return false;
@@ -402,7 +416,6 @@ bool gameLogic(int squareNum, int &turnNum)
     
     return false;
 }
-
 
 //Quits all related systems
 void quitProgram()
