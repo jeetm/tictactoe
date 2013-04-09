@@ -30,10 +30,11 @@ bool squaresOccupied[9] = {false};
 int winningCombinations[8][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7}};
 std::vector<int> squaresFilledO;
 std::vector<int> squaresFilledX;
-char allPossibleCombinations[9];
-int kArray[3];
+char boardX[3][3];
+char boardO[3][3];
 int turnNumber;
-int columnSumX, columnSumO, rowSumX, rowSumO, diagSumX, diagSumO = 0;
+int board[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
+bool boardFilled = false;
 
 //Event Declaration
 SDL_Event event;
@@ -208,16 +209,44 @@ void numConverter (int squareNumber, int &offsetX, int &offsetY)
 }
 
 //Function that check's if there is a winner and returns whether its a winning combination or not
-int CheckForWinner( char spaces[9] )
+int CheckForWinner( char spaces[][3] )
 {
 	//Check Rows
-	for( int i = 0; i < 3; i+=3 )
+	for( int i = 0; i < 3; i++)
 	{
-        if ( spaces[i] == 'X' && spaces[i+1] == 'X' && spaces[i+2] == 'X')
-            return 1;
-        else if ( spaces[i] == 'O' && spaces[i+1] == 'O' && spaces[i+2] == 'O')
-            return 2;
+        for (int j = 0; j < 3; j+=3)
+        {
+            if ( spaces[i][j] == 'X' && spaces[i][j+1] == 'X' && spaces[i][j+2] == 'X')
+                return 1;
+            else if ( spaces[i][j] == 'O' && spaces[i][j+1] == 'O' && spaces[i][j+2] == 'O')
+                return 2;
+        }
 	}
+    
+    //Check Columns
+    for( int i = 0; i < 3; i++)
+	{
+        for (int j = 0; j < 3; j++)
+        {
+            if ( spaces[i][j] == 'X' && spaces[i+1][j] == 'X' && spaces[i+2][j] == 'X')
+                return 1;
+            else if ( spaces[i][j] == 'O' && spaces[i+1][j] == 'O' && spaces[i+2][j] == 'O')
+                return 2;
+            i=0;
+        }
+        break;
+	}
+    
+    //Check Diagonals
+    if (spaces[0][0] == 'X' && spaces[1][1] == 'X' && spaces[2][2] == 'X')
+        return 1;
+    else if (spaces[0][0] == 'O' && spaces[1][1] == 'O' && spaces[2][2] == 'O')
+        return 2;
+    else if (spaces[0][2] == 'X' && spaces[1][1] == 'X' && spaces[2][0] == 'X')
+        return 1;
+    else if (spaces[0][2] == '0' && spaces[1][1] == 'O' && spaces[2][0] == 'O')
+        return 2;
+                                                                                                                                                                                                                                                                                                                                    
     return 0;
 }
 
@@ -239,11 +268,74 @@ void printArray(char array[])
     }
 }
 
+//Function that converts board numbers to array locations
+void boardConverter (int squareNumber, int &oneD, int &twoD)
+{
+    if (squareNumber == 1)
+    {
+        oneD = 0;
+        twoD = 0;
+    }
+    if (squareNumber == 2)
+    {
+        oneD = 0;
+        twoD = 1;
+    }
+    if (squareNumber == 3)
+    {
+        oneD = 0;
+        twoD = 2;
+    }
+    if (squareNumber == 4)
+    {
+        oneD = 1;
+        twoD = 0;
+    }
+    if (squareNumber == 5)
+    {
+        oneD = 1;
+        twoD = 1;
+    }
+    if (squareNumber == 6)
+    {
+        oneD = 1;
+        twoD = 2;
+    }
+    if (squareNumber == 7)
+    {
+        oneD = 2;
+        twoD = 0;
+    }
+    if (squareNumber == 8)
+    {
+        oneD = 2;
+        twoD = 1;
+    }
+    if (squareNumber == 9)
+    {
+        oneD = 2;
+        twoD = 2;
+    }
+}
+
+//Checks if the board is filled up
+bool gameFinished()
+{
+    for (int i = 0; i < 9; i++)
+    {
+        if (squaresOccupied[i] != false)
+            boardFilled = true;
+        else
+            boardFilled = false;
+    }
+    return boardFilled;
+}
+
 //Function that handles game logic
-void gameLogic(int squareNum, int &turnNum)
+bool gameLogic(int squareNum, int &turnNum)
 {
     int winner;
-    int offsetX, offsetY = 0;
+    int offsetX, offsetY, oneD, twoD = 0;
     if (turnNum % 2 != 0)
     {
         for (int i = 1; i <= 9; i++)
@@ -258,13 +350,19 @@ void gameLogic(int squareNum, int &turnNum)
                     printVector(squaresFilledO);
                     turnNum++;
                     squaresOccupied[i] = true;
-                    allPossibleCombinations[squareNum] = 'O';
-                    printArray(allPossibleCombinations);
-                    winner = CheckForWinner(allPossibleCombinations);
+                    
+                    boardConverter(squareNum, oneD, twoD);
+                    boardO[oneD][twoD] = 'O';
+                    winner = CheckForWinner(boardO);
                     if (winner == 2)
                     {
-                        std::cout << "O is the winner";
-                        break;
+                        std::cout << "O has won!";
+                        return true;
+                    }
+                    else if (winner == 0 && gameFinished() == true)
+                    {
+                        std::cout << "It's a tie!";
+                        return false;
                     }
                 }
             }
@@ -283,22 +381,41 @@ void gameLogic(int squareNum, int &turnNum)
                     printVector(squaresFilledX);
                     turnNum++;
                     squaresOccupied[i] = true;
-                    allPossibleCombinations[squareNum] = 'X';
-                    winner = CheckForWinner(allPossibleCombinations);
+                    
+                    boardConverter(squareNum, oneD, twoD);
+                    boardX[oneD][twoD] = 'X';
+                    winner = CheckForWinner(boardX);
                     if (winner == 1)
                     {
-                        std::cout << "X is the winner";
-                        break;
+                        std::cout << "X has won";
+                        return true;
+                    }
+                    else if (winner == 0 && gameFinished() == true)
+                    {
+                        std::cout << "It's a tie!";
+                        return false;
                     }
                 }
             }
         }
     }
+    
+    return false;
+}
+
+
+//Quits all related systems
+void quitProgram()
+{
+    TTF_CloseFont(myfont);
+    TTF_Quit();
+    SDL_Quit();
 }
 
 //Function that will handle all events
 void handleEvents(SDL_Event event)
 {
+    bool quit;
     int x,y, squareClicked;
     
     if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -309,7 +426,11 @@ void handleEvents(SDL_Event event)
             y = event.button.y;
             
             squareClicked = checkSquareNumber(x, y);
-            gameLogic(squareClicked, turnNumber);
+            quit = gameLogic(squareClicked, turnNumber);
+            if (quit == true)
+            {
+                quitProgram();
+            }
         }
     }
 }
@@ -334,14 +455,6 @@ bool loadFiles()
     }
 
     return true;
-}
-
-//Quits all related systems
-void quitProgram()
-{
-    TTF_CloseFont(myfont);
-    TTF_Quit();
-    SDL_Quit();
 }
 
 //Main Progam
