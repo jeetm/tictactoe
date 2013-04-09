@@ -341,7 +341,7 @@ bool gameFinished()
 }
 
 //Function that handles game logic
-bool gameLogic(int squareNum, int &turnNum)
+bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccured)
 {
     int winner;
     int offsetX, offsetY, oneD, twoD = 0;
@@ -369,11 +369,15 @@ bool gameLogic(int squareNum, int &turnNum)
                     if (winner == 2)
                     {
                         std::cout << "O has won!";
+                        resultingWinner = 'O';
+                        tieOccured = false;
                         return true;
                     }
                     else if (winner == 0 && boardFilled == true)
                     {
                         std::cout << "It's a tie!";
+                        resultingWinner = 'N';
+                        tieOccured = true;
                         return false;
                     }
                 }
@@ -402,11 +406,15 @@ bool gameLogic(int squareNum, int &turnNum)
                     if (winner == 1)
                     {
                         std::cout << "X has won";
+                        resultingWinner = 'X';
+                        tieOccured = false;
                         return true;
                     }
                     else if (winner == 0 && boardFilled == true)
                     {
                         std::cout << "It's a tie!";
+                        resultingWinner = 'N';
+                        tieOccured = true;
                         return false;
                     }
                 }
@@ -428,8 +436,9 @@ void quitProgram()
 //Function that will handle all events
 void handleEvents(SDL_Event event)
 {
-    bool quit;
+    bool quit, tieHappen;
     int x,y, squareClicked;
+    char overallWinner;
     
     if (event.type == SDL_MOUSEBUTTONDOWN)
     {
@@ -439,8 +448,16 @@ void handleEvents(SDL_Event event)
             y = event.button.y;
             
             squareClicked = checkSquareNumber(x, y);
-            quit = gameLogic(squareClicked, turnNumber);
-            if (quit == true)
+            quit = gameLogic(squareClicked, turnNumber, overallWinner, tieHappen);
+            
+            //Winner was Decided
+            if (quit == true && tieHappen == false)
+            {
+                quitProgram();
+            }
+            
+            //Tie Occured
+            else if (quit == true && tieHappen == true)
             {
                 quitProgram();
             }
