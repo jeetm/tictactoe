@@ -480,12 +480,13 @@ void handleEvents(SDL_Event event)
             {
                 if (overallWinner == 'X')
                 {
-                    winnerMessageX = TTF_RenderText_Solid(myfont, "X Has Won!", titleColor);
-                    applySurface(0, 0, gameGrid, screen);
-                    reapplyImages(locationO, locationX);
-                    applySurface(160, 0, winnerMessageX, screen);
-                    SDL_Delay(4000);
+//                    winnerMessageX = TTF_RenderText_Solid(myfont, "X Has Won!", titleColor);
+//                    applySurface(0, 0, gameGrid, screen);
+//                    reapplyImages(locationO, locationX);
+//                    applySurface(160, 0, winnerMessageX, screen);
+//                    SDL_Delay(4000);
                 }
+                
                 quitProgram();
             }
             
