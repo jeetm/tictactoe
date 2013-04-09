@@ -30,8 +30,6 @@ SDL_Color titleColor = {255, 255, 255};
 
 //Game-Related Variables
 bool squaresOccupied[10] = {false};
-std::vector<int> squaresFilledO;
-std::vector<int> squaresFilledX;
 char boardX[3][3];
 char boardO[3][3];
 int turnNumber;
@@ -341,7 +339,6 @@ bool gameFinished()
     
     if (boardFilled == true)
     {
-        std::cout << "The board is full";
         return true;
     }
    
@@ -351,7 +348,7 @@ bool gameFinished()
 //Re-applies the images
 void reapplyImages(int locationCircle[][2], int locationCross[][2])
 {
-    for (int i = 1; i<=9; i++)
+    for (int i = 0; i<9; i++)
     {
         for (int j = 0; j < 1; j++)
         {
@@ -377,15 +374,14 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, oToken, screen);
-                    squaresFilledO.push_back(squareNum);
-                    printVector(squaresFilledO);
                     turnNum++;
+                    if (counter > 1)
+                        counter = 0;
                     locationO[i-1][counter] = offsetX;
                     locationO[i-1][counter+1] = offsetY;
                     counter++;
                     squaresOccupied[i] = true;
                     boardFilled = gameFinished();
-                    std::cout << boardFilled;
                     counter++;
                     
                     boardConverter(squareNum, oneD, twoD);
@@ -418,15 +414,15 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, xToken, screen);
+                    std::cout << offsetX << offsetY;
+                    if (counter > 1)
+                        counter = 0;
                     locationX[i-1][counter] = offsetX;
                     locationX[i-1][counter+1] = offsetY;
-                    printArray(locationX);
-                    squaresFilledX.push_back(squareNum);
-                    printVector(squaresFilledX);
+                    //printArray(locationX);
                     turnNum++;
                     squaresOccupied[i] = true;
                     boardFilled = gameFinished();
-                    std::cout << boardFilled;
                     counter++;
                     
                     boardConverter(squareNum, oneD, twoD);
@@ -488,7 +484,6 @@ void handleEvents(SDL_Event event)
                     applySurface(0, 0, gameGrid, screen);
                     reapplyImages(locationO, locationX);
                     applySurface(160, 0, winnerMessageX, screen);
-                    SDL_Flip(screen);
                     SDL_Delay(4000);
                 }
                 quitProgram();
