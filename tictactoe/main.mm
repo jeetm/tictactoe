@@ -23,6 +23,9 @@ SDL_Surface* gameGrid = NULL;
 //Font Declaration
 TTF_Font* myfont = NULL;
 SDL_Surface* titleMessage = NULL;
+SDL_Surface* winnerMessageX = NULL;
+SDL_Surface* winnerMessageO = NULL;
+SDL_Surface* drawMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
 
 //Game-Related Variables
@@ -453,6 +456,13 @@ void handleEvents(SDL_Event event)
             //Winner was Decided
             if (quit == true && tieHappen == false)
             {
+                if (overallWinner == 'X')
+                {
+                    winnerMessageX = TTF_RenderText_Solid(myfont, "X Has Won!", titleColor);
+                    //applySurface(0, 0, gameGrid, screen);
+                    applySurface(160, 0, winnerMessageX, screen);
+                    SDL_Delay(4000);
+                }
                 quitProgram();
             }
             
