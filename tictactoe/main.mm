@@ -24,6 +24,9 @@ SDL_Surface* gameGrid = NULL;
 TTF_Font* myfont = NULL;
 SDL_Surface* titleMessage = NULL;
 SDL_Surface* winnerMessageX = NULL;
+SDL_Surface* winnerImageX = NULL;
+SDL_Surface* winnerImageO = NULL;
+SDL_Surface* tieImage = NULL;
 SDL_Surface* winnerMessageO = NULL;
 SDL_Surface* drawMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
@@ -399,6 +402,7 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                         std::cout << "It's a tie!";
                         resultingWinner = 'N';
                         tieOccured = true;
+                        std::cout << tieOccured;
                         return false;
                     }
                 }
@@ -480,13 +484,25 @@ void handleEvents(SDL_Event event)
             {
                 if (overallWinner == 'X')
                 {
-//                    winnerMessageX = TTF_RenderText_Solid(myfont, "X Has Won!", titleColor);
-//                    applySurface(0, 0, gameGrid, screen);
-//                    reapplyImages(locationO, locationX);
-//                    applySurface(160, 0, winnerMessageX, screen);
-//                    SDL_Delay(4000);
+                    applySurface(170, 250, winnerImageX, screen);
+                    SDL_Flip(screen);
+                    SDL_Delay(4000);
                 }
                 
+                if (overallWinner == 'O')
+                {
+                    applySurface(170, 250, winnerImageO, screen);
+                    SDL_Flip(screen);
+                    SDL_Delay(4000);
+                }
+                
+                quitProgram();
+            }
+            
+            else if (quit == true && tieHappen == true)
+            {
+                applySurface(170, 250, tieImage, screen);
+                SDL_Delay(4000);
                 quitProgram();
             }
             
@@ -505,9 +521,13 @@ bool loadFiles()
     gameGrid = loadImages("grid.png", false);
     xToken = loadImages("x.png", true);
     oToken = loadImages("o.png", true);
+    winnerImageX = loadImages("xwinner.png", false);
+    winnerImageO = loadImages("owinner.png", false);
+    tieImage = loadImages("draw.png", false);
     
-    if (gameGrid == NULL || xToken == NULL || oToken == NULL)
+    if (gameGrid == NULL || xToken == NULL || oToken == NULL || winnerImageO == NULL || winnerImageX == NULL || tieImage == NULL)
     {
+        std::cout << "some images didn't load";
         return false;
     }
     
