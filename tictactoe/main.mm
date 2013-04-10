@@ -498,19 +498,15 @@ void handleEvents(SDL_Event event)
                 
                 quitProgram();
             }
-            
-            else if (quit == true && tieHappen == true)
+            else if (overallWinner == 'N')
             {
+                std::cout<<overallWinner<<tieHappen;
                 applySurface(170, 250, tieImage, screen);
                 SDL_Delay(4000);
                 quitProgram();
             }
             
-            //Tie Occured
-            else if (quit == true && tieHappen == true)
-            {
-                quitProgram();
-            }
+
         }
     }
 }
