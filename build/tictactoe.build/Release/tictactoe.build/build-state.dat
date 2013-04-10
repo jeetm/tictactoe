@@ -1,0 +1,159 @@
+Ttictactoe
+v5
+r1
+cCheck dependencies
+cCompileC build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.o /Users/JeetMehta/Documents/tictactoe/SDLMain.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.o /Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm normal x86_64 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe normal x86_64
+cGenerateDSYMFile /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYM /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+c00000000511A5C7500000000000000AA
+t1360682101
+s170
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Cocoa.framework/Cocoa
+c000000005092B8BB00000000000025C8
+t1351792827
+s9672
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000005092B8BC00000000000C39B8
+t1351792828
+s801208
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include/sys/param.h
+c000000005092B8C400000000000027BE
+t1351792836
+s10174
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include/unistd.h
+c000000005092B8C40000000000006762
+t1351792836
+s26466
+
+N/Users/JeetMehta/Documents/SDL/SDL.framework/Headers/SDL.h
+c000000004F17A7BF0000000000000CA1
+t1326950335
+s3233
+
+N/Users/JeetMehta/Documents/tictactoe/../SDL/SDL.framework/SDL
+c000000004F17A7BF00000000000B66C8
+t1326950335
+s747208
+
+N/Users/JeetMehta/Documents/tictactoe/../SDL/SDL_image.framework/SDL_image
+c000000004F1A19B900000000000123F0
+t1327110585
+s74736
+
+N/Users/JeetMehta/Documents/tictactoe/../SDL/SDL_ttf.framework/SDL_ttf
+c000000004F12FB7D000000000000CD4C
+t1326644093
+s52556
+
+N/Users/JeetMehta/Documents/tictactoe/SDLMain.h
+c000000004F17A7BF0000000000000176
+t1326950335
+s374
+
+N/Users/JeetMehta/Documents/tictactoe/SDLMain.m
+c000000005150A3440000000000002BC1
+t1364239172
+s11201
+i<SDL/SDL.h>
+i"SDLMain.h"
+i<sys/param.h>
+i<unistd.h>
+
+N/Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe
+t2
+s0
+
+N/Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYM
+t2
+s0
+
+N/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.o
+t2
+s0
+
+N/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.o
+t2
+s0
+
+N/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/tictactoe.LinkFileList
+c000000005165734200000000000000E3
+t1365603138
+s227
+
+N/Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm
+c0000000051646B3B0000000000003676
+t1365535547
+s13942
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies6a8628c2aa15b741^213d89c2aa15b741^---0#1#0#--18"Check dependencies36"CB89A5F3-3CB1-43D7-AC6A-05C1EC5FB95D-
+
+CCompileC build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.o /Users/JeetMehta/Documents/tictactoe/SDLMain.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s387295938.543602
+e387295940.734510
+r1
+xCompileC
+xbuild/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.o
+x/Users/JeetMehta/Documents/tictactoe/SDLMain.m
+xnormal
+xx86_64
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+o/Users/JeetMehta/Documents/tictactoe/SDLMain.m:72:1: warning: category is implementing a method which will also be implemented by its primary class [-Wobjc-protocol-method-implementation]
+o- (void)terminate:(id)sender
+o^
+o/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSApplication.h:180:1: note: method 'terminate:' declared here
+o- (void)terminate:(id)sender;
+o^
+o/Users/JeetMehta/Documents/tictactoe/SDLMain.m:313:28: warning: implicit conversion loses integer precision: 'NSUInteger' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]
+o    unsigned int selfLen = [self length];
+o                 ~~~~~~~   ^~~~~~~~~~~~~
+o/Users/JeetMehta/Documents/tictactoe/SDLMain.m:314:31: warning: implicit conversion loses integer precision: 'NSUInteger' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]
+o    unsigned int aStringLen = [aString length];
+o                 ~~~~~~~~~~   ^~~~~~~~~~~~~~~~
+o/Users/JeetMehta/Documents/tictactoe/SDLMain.m:319:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' [-Wshorten-64-to-32]
+o    bufferSize = selfLen + aStringLen - aRange.length;
+o               ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+o4 warnings generated.
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection54"Compile /Users/JeetMehta/Documents/tictactoe/SDLMain.m58748bc2aa15b741^0307bcc4aa15b741^-1303"/Users/JeetMehta/Documents/tictactoe/SDLMain.m:72:1: warning: category is implementing a method which will also be implemented by its primary class [-Wobjc-protocol-method-implementation]- (void)terminate:(id)sender^/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSApplication.h:180:1: note: method 'terminate:' declared here- (void)terminate:(id)sender;^/Users/JeetMehta/Documents/tictactoe/SDLMain.m:313:28: warning: implicit conversion loses integer precision: 'NSUInteger' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]    unsigned int selfLen = [self length];                 ~~~~~~~   ^~~~~~~~~~~~~/Users/JeetMehta/Documents/tictactoe/SDLMain.m:314:31: warning: implicit conversion loses integer precision: 'NSUInteger' (aka 'unsigned long') to 'unsigned int' [-Wshorten-64-to-32]    unsigned int aStringLen = [aString length];                 ~~~~~~~~~~   ^~~~~~~~~~~~~~~~/Users/JeetMehta/Documents/tictactoe/SDLMain.m:319:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'unsigned int' [-Wshorten-64-to-32]    bufferSize = selfLen + aStringLen - aRange.length;               ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~4 warnings generated.4(36%IDEClangDiagnosticActivityLogMessage2@85"Category is implementing a method which will also be implemented by its primary class-387295940#18446744073709551615#0#1(2@33"Method 'terminate:' declared here-387295940#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@181"file://localhost/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSApplication.h0000000000000000^179#0#179#0#7097#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^71#0#71#0#2042#0#14"Semantic Issue--2@97"Implicit conversion loses integer precision: 'NSUInteger' (aka 'unsigned long') to 'unsigned int'-387295940#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^312#27#312#27#9353#0#14"Semantic Issue2(3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^312#27#312#40#9353#12#3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^312#17#312#24#9343#0#-2@97"Implicit conversion loses integer precision: 'NSUInteger' (aka 'unsigned long') to 'unsigned int'-387295940#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^313#30#313#30#9398#0#14"Semantic Issue2(3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^313#30#313#46#9398#15#3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^313#17#313#27#9385#0#-2@78"Implicit conversion loses integer precision: 'unsigned long' to 'unsigned int'-387295940#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^318#38#318#38#9522#0#14"Semantic Issue2(3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^318#17#318#53#9501#30#3@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^318#15#318#16#9499#0#-0#0#0#-19%DVTDocumentLocation4@62"file://localhost/Users/JeetMehta/Documents/tictactoe/SDLMain.m0000000000000000^2862"CompileC build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.o SDLMain.m normal x86_64 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/JeetMehta/Documents/tictactoe    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch x86_64 -fmessage-length=0 -std=gnu99 -Wno-trigraphs -fpascal-strings -Os -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.8 -g -fvisibility=hidden -Wno-sign-conversion -iquote /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-generated-files.hmap -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-own-target-headers.hmap -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-all-target-headers.hmap -iquote /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-project-headers.hmap -I/Users/JeetMehta/Documents/tictactoe/build/Release/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/DerivedSources/x86_64 -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/DerivedSources -F/Users/JeetMehta/Documents/tictactoe/build/Release -F/Users/JeetMehta/Documents/tictactoe/../SDL -MMD -MT dependencies -MF /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.d --serialize-diagnostics /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.dia -c /Users/JeetMehta/Documents/tictactoe/SDLMain.m -o /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/SDLMain.o36"9375CF4D-FF7C-443F-B44B-3F9CA7F0B117-
+
+CCompileC build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.o /Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm normal x86_64 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s387295938.544398
+e387295939.872621
+r1
+xCompileC
+xbuild/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.o
+x/Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm
+xnormal
+xx86_64
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Compile /Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm33888bc2aa15b741^e962dfc3aa15b741^---0#0#0#-19%DVTDocumentLocation2@70"file://localhost/Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm0000000000000000^3014"CompileC build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.o tictactoe/main.mm normal x86_64 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/JeetMehta/Documents/tictactoe    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch x86_64 -fmessage-length=0 -std=gnu++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -Os -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.8 -g -fvisibility=hidden -fvisibility-inlines-hidden -Wno-sign-conversion -iquote /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-generated-files.hmap -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-own-target-headers.hmap -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-all-target-headers.hmap -iquote /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/tictactoe-project-headers.hmap -I/Users/JeetMehta/Documents/tictactoe/build/Release/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/DerivedSources/x86_64 -I/Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/DerivedSources -F/Users/JeetMehta/Documents/tictactoe/build/Release -F/Users/JeetMehta/Documents/tictactoe/../SDL -MMD -MT dependencies -MF /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.d --serialize-diagnostics /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.dia -c /Users/JeetMehta/Documents/tictactoe/tictactoe/main.mm -o /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/main.o36"7C535FA1-AC34-4732-ABB4-73EB867FE230-
+
+CGenerateDSYMFile /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYM /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe
+s387295941.732003
+e387295941.811297
+r1
+xGenerateDSYMFile
+x/Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYM
+x/Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Generate /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYMe3a9bbc5aa15b741^a2b4cfc5aa15b741^---0#0#0#-19%DVTDocumentLocation2@81"file://localhost/Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYM000000000080d041^344"GenerateDSYMFile build/Release/tictactoe.dSYM build/Release/tictactoe    cd /Users/JeetMehta/Documents/tictactoe    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe -o /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe.dSYM36"935EFC15-0720-4859-AC39-592E94EBA26E-
+
+CLd /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe normal x86_64
+s387295940.741980
+e387295941.724965
+r1
+xLd
+x/Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe
+xnormal
+xx86_64
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection65"Link /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe8e3abec4aa15b741^48a4b9c5aa15b741^---0#0#0#--856"Ld build/Release/tictactoe normal x86_64    cd /Users/JeetMehta/Documents/tictactoe    setenv MACOSX_DEPLOYMENT_TARGET 10.8    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk -L/Users/JeetMehta/Documents/tictactoe/build/Release -F/Users/JeetMehta/Documents/tictactoe/build/Release -F/Users/JeetMehta/Documents/tictactoe/../SDL -filelist /Users/JeetMehta/Documents/tictactoe/build/tictactoe.build/Release/tictactoe.build/Objects-normal/x86_64/tictactoe.LinkFileList -mmacosx-version-min=10.8 -fobjc-link-runtime -stdlib=libc++ -framework Foundation -framework Cocoa -framework SDL_ttf -framework SDL_image -framework SDL -o /Users/JeetMehta/Documents/tictactoe/build/Release/tictactoe36"BB2ABF61-E9AE-475D-8F2D-80518150DC5D-
+
