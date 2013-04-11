@@ -1,5 +1,4 @@
-//  main.mm
-//  tictactoe
+//  Tic-Tac-Toe
 //  Created by Jeet Mehta on 2013-04-04.
 //  Copyright (c) 2013 Jeet Mehta. All rights reserved.
 
@@ -167,7 +166,7 @@ bool applySurface (int x, int y, SDL_Surface* source, SDL_Surface* dest)
     return true;
 }
 
-//Converts square Number to offsets
+//Converts the square number to its respective set of offsets/co-ordinates
 void numConverter (int squareNumber, int &offsetX, int &offsetY)
 {
     if (squareNumber == 1)
@@ -260,7 +259,7 @@ int CheckForWinner( char spaces[][3] )
     return 0;
 }
 
-//Function that converts board numbers to array locations
+//Function that converts board numbers to locations within the board arrays
 void boardConverter (int squareNumber, int &oneD, int &twoD)
 {
     if (squareNumber == 1)
@@ -310,7 +309,7 @@ void boardConverter (int squareNumber, int &oneD, int &twoD)
     }
 }
 
-//Checks if the board is filled up
+//Checks if the board is completely filled up
 bool gameFinished()
 {
     for (int i = 1; i <= 9; i++)
@@ -435,7 +434,7 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
     return false;
 }
 
-//Quits all related systems
+//Quits all related sub-systems
 void quitProgram()
 {
     TTF_CloseFont(myfont);
@@ -443,7 +442,7 @@ void quitProgram()
     SDL_Quit();
 }
 
-//Function that will handle all events
+//Function that will handle all events registered, and deal with those releveant, like mouse-clicks
 void handleEvents(SDL_Event event, bool keepPlaying)
 {
     bool quit, tieHappen;
@@ -457,6 +456,7 @@ void handleEvents(SDL_Event event, bool keepPlaying)
             x = event.button.x;
             y = event.button.y;
             
+            //If it is the first time the game is being played
             if (willPlayAgain(x, y) == false)
             {
                 squareClicked = checkSquareNumber(x, y);
@@ -480,6 +480,7 @@ void handleEvents(SDL_Event event, bool keepPlaying)
                     }
                 }
                 
+                //Tie Game
                 else if (overallWinner == 'N')
                 {
                     applySurface(170, 250, tieImage, screen);
@@ -487,6 +488,8 @@ void handleEvents(SDL_Event event, bool keepPlaying)
                 }
 
             }
+            
+            //If play again is pressed, clear the screen and reset the UI as well as all-related game variables, so they are ready to be re-used
             else if (willPlayAgain(x, y) == true)
             {
                 applySurface(0, 0, gameGrid, screen);
@@ -533,6 +536,8 @@ bool loadFiles()
 int main(int argc, char ** argv)
 {
     bool playAgain = true;
+    
+    //While the user wishes to play again
     while (playAgain == true)
     {
         bool quit = false;
