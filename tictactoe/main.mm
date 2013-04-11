@@ -19,6 +19,7 @@ SDL_Surface* screen = NULL;
 SDL_Surface* xToken = NULL;
 SDL_Surface* oToken = NULL;
 SDL_Surface* gameGrid = NULL;
+SDL_Surface* playAgain = NULL;
 
 //Font Declaration
 TTF_Font* myfont = NULL;
@@ -36,9 +37,6 @@ bool squaresOccupied[10] = {false};
 char boardX[3][3];
 char boardO[3][3];
 int turnNumber;
-int board[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
-int locationX[9][2];
-int locationO[9][2];
 bool boardFilled;
 
 //Event Declaration
@@ -70,7 +68,7 @@ bool init()
 }
 
 //Load Image Function
-SDL_Surface* loadImages(std:: string filename, bool colorKey)
+SDL_Surface* loadImages(std:: string filename, bool colorKey, int red, int blue, int green)
 {
     SDL_Surface* inputImage = NULL;
     SDL_Surface* outputImage = NULL;
@@ -86,7 +84,7 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey)
            //Code for Color keying
             if (colorKey == true)
             {
-                Uint32 key = SDL_MapRGB(outputImage->format, 255, 0, 255);
+                Uint32 key = SDL_MapRGB(outputImage->format, red, blue, green);
                 SDL_SetColorKey(outputImage, SDL_SRCCOLORKEY, key);
             }
         }
@@ -144,6 +142,16 @@ int checkSquareNumber (int locationX, int locationY)
     }
     
     return 0;
+}
+
+//Function that checks if playAgain was clicked
+bool willPlayAgain(int locationX, int locationY)
+{
+    if (locationX > 365 && locationX < 465 && (locationY > 325 && locationY < 367))
+        {
+            return true;
+        }
+    return false;
 }
 
 //Function that takes in images and offsets and applies them
@@ -348,21 +356,40 @@ bool gameFinished()
     return false;
 }
 
-//Re-applies the images
-void reapplyImages(int locationCircle[][2], int locationCross[][2])
+//Function that clears the elements of a 1-D integer array
+void clearOneDArray(int array[])
 {
-    for (int i = 0; i<9; i++)
+    int size = sizeof(array) / sizeof(int);
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < 1; j++)
+        array[i] = 0;
+    }
+}
+
+//Function that clears all the elements of a 3-D char array
+void clearCharArray (char array[][3])
+{
+    int size = sizeof(array) / sizeof(int);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < 3; j++)
         {
-            applySurface(locationCircle[i][j], locationCircle[i][j+1], oToken, screen);
-            applySurface(locationCross[i][j], locationCross[i][j+1], xToken, screen);
+            array[i][j] = 0;
         }
     }
 }
 
+//Function that sets all elements of a bool array to false
+void clearBoolArray (bool array[])
+{
+    for (int i = 0; i < 10; i++)
+    {
+        array[i] = false;
+    }
+}
+
 //Function that handles game logic
-bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccured, int locationX[][2], int locationO[][2])
+bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccured)
 {
     int winner;
     int offsetX, counter = 0, offsetY, oneD, twoD = 0;
@@ -380,8 +407,6 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                     turnNum++;
                     if (counter > 1)
                         counter = 0;
-                    locationO[i-1][counter] = offsetX;
-                    locationO[i-1][counter+1] = offsetY;
                     counter++;
                     squaresOccupied[i] = true;
                     boardFilled = gameFinished();
@@ -421,9 +446,6 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                     std::cout << offsetX << offsetY;
                     if (counter > 1)
                         counter = 0;
-                    locationX[i-1][counter] = offsetX;
-                    locationX[i-1][counter+1] = offsetY;
-                    //printArray(locationX);
                     turnNum++;
                     squaresOccupied[i] = true;
                     boardFilled = gameFinished();
@@ -463,7 +485,7 @@ void quitProgram()
 }
 
 //Function that will handle all events
-void handleEvents(SDL_Event event)
+void handleEvents(SDL_Event event, bool keepPlaying)
 {
     bool quit, tieHappen;
     int x,y, squareClicked;
@@ -476,8 +498,23 @@ void handleEvents(SDL_Event event)
             x = event.button.x;
             y = event.button.y;
             
-            squareClicked = checkSquareNumber(x, y);
-            quit = gameLogic(squareClicked, turnNumber, overallWinner, tieHappen, locationX, locationO);
+            if (willPlayAgain(x, y) == false)
+            {
+                squareClicked = checkSquareNumber(x, y);
+                quit = gameLogic(squareClicked, turnNumber, overallWinner, tieHappen);
+            }
+            else if (willPlayAgain(x, y) == true)
+            {
+                applySurface(0, 0, gameGrid, screen);
+                applySurface(160, 0, titleMessage, screen);
+                SDL_Flip(screen);
+                clearBoolArray(squaresOccupied);
+                clearCharArray(boardO);
+                clearCharArray(boardX);
+                turnNumber = 0;
+                boardFilled = false;
+                //playAgain = false;
+            }
             
             //Winner was Decided
             if (quit == true && tieHappen == false)
@@ -485,26 +522,84 @@ void handleEvents(SDL_Event event)
                 if (overallWinner == 'X')
                 {
                     applySurface(170, 250, winnerImageX, screen);
+                    applySurface(365, 325, playAgain, screen);
                     SDL_Flip(screen);
-                    SDL_Delay(4000);
+//                    if (event.type == SDL_MOUSEBUTTONDOWN)
+//                    {
+//                        if (event.button.button == SDL_BUTTON_LEFT)
+//                        {
+//                            x = event.button.x;
+//                            y = event.button.y;
+//                            
+//                            if (willPlayAgain(x, y))
+//                            {
+//                                std::cout << "play again button was clicked";
+//                                keepPlaying = true;
+//                            }
+//                            else {
+//                                keepPlaying = false;
+//                            }
+//                        }
+//                    }
+//                    if (playAgain == false)
+//                    {
+//                        quitProgram();
+//                    }
                 }
                 
                 if (overallWinner == 'O')
                 {
                     applySurface(170, 250, winnerImageO, screen);
+                    applySurface(365, 325, playAgain, screen);
                     SDL_Flip(screen);
-                    SDL_Delay(4000);
+//                    if (event.type == SDL_MOUSEBUTTONDOWN)
+//                    {
+//                        if (event.button.button == SDL_BUTTON_LEFT)
+//                        {
+//                            x = event.button.x;
+//                            y = event.button.y;
+//                            
+//                            if (willPlayAgain(x, y))
+//                            {
+//                                keepPlaying = true;
+//                            }
+//                            else {
+//                                keepPlaying = false;
+//                            }
+//                        }
+//                    }
+//                    if (playAgain == false)
+//                    {
+//                        quitProgram();
+//                    }
                 }
-                
-                quitProgram();
             }
 
             else if (overallWinner == 'N')
             {
                 std::cout<<overallWinner<<tieHappen;
                 applySurface(170, 250, tieImage, screen);
-                SDL_Delay(4000);
-                quitProgram();
+                applySurface(365, 325, playAgain, screen);
+//                if (event.type == SDL_MOUSEBUTTONDOWN)
+//                {
+//                    if (event.button.button == SDL_BUTTON_LEFT)
+//                    {
+//                        x = event.button.x;
+//                        y = event.button.y;
+//                        
+//                        if (willPlayAgain(x, y))
+//                        {
+//                            keepPlaying = true;
+//                        }
+//                        else {
+//                            keepPlaying = false;
+//                        }
+//                    }
+//                }
+//                if (playAgain == false)
+//                {
+//                    quitProgram();
+//                }
             }
             
 
@@ -515,12 +610,13 @@ void handleEvents(SDL_Event event)
 //Function which loads all necessary files
 bool loadFiles()
 {
-    gameGrid = loadImages("grid.png", false);
-    xToken = loadImages("x.png", true);
-    oToken = loadImages("o.png", true);
-    winnerImageX = loadImages("xwinner.png", false);
-    winnerImageO = loadImages("owinner.png", false);
-    tieImage = loadImages("draw.png", false);
+    gameGrid = loadImages("grid.png", false, 0, 0, 0);
+    xToken = loadImages("x.png", true, 255, 0, 255);
+    oToken = loadImages("o.png", true, 255, 0, 255);
+    winnerImageX = loadImages("xwinner.png", false, 0, 0, 0);
+    winnerImageO = loadImages("owinner.png", false, 0, 0, 0);
+    tieImage = loadImages("draw.png", false, 0 , 0, 0);
+    playAgain = loadImages("playagain.png", true, 0, 0, 0);
     
     if (gameGrid == NULL || xToken == NULL || oToken == NULL || winnerImageO == NULL || winnerImageX == NULL || tieImage == NULL)
     {
@@ -541,39 +637,42 @@ bool loadFiles()
 //Main Progam
 int main(int argc, char ** argv)
 {
-    
-    bool quit = false;
-    
-    
-    if (init() == false)
+    bool playAgain = true;
+    while (playAgain == true)
     {
-        return -1;
-    }
+        bool quit = false;
     
-    if (loadFiles() == false)
-    {
-        return -1;
-    }
-    
-    titleMessage = TTF_RenderText_Solid(myfont, "Tic Tac Toe", titleColor);
-    
-    applySurface(0, 0, gameGrid, screen);
-    applySurface(160, 0, titleMessage, screen);
-    
-    SDL_Flip(screen);
-    
-    while (quit == false)
-    {
-        while (SDL_PollEvent(&event))
+        if (init() == false)
         {
-            if (event.type == SDL_QUIT)
+            return -1;
+        }
+        
+        if (loadFiles() == false)
+        {
+            return -1;
+        }
+        
+        titleMessage = TTF_RenderText_Solid(myfont, "Tic Tac Toe", titleColor);
+        
+        applySurface(0, 0, gameGrid, screen);
+        applySurface(160, 0, titleMessage, screen);
+        
+        SDL_Flip(screen);
+        
+        while (quit == false)
+        {
+            while (SDL_PollEvent(&event))
             {
-                quit = true;
+                if (event.type == SDL_QUIT)
+                {
+                    playAgain = false;
+                    quit = true;
+                }
+                handleEvents(event, &playAgain);
             }
-            handleEvents(event);
         }
     }
-    
+
     quitProgram();
     return 0;
 }
