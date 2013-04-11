@@ -369,8 +369,7 @@ void clearOneDArray(int array[])
 //Function that clears all the elements of a 3-D char array
 void clearCharArray (char array[][3])
 {
-    int size = sizeof(array) / sizeof(int);
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
         {
