@@ -502,6 +502,93 @@ void handleEvents(SDL_Event event, bool keepPlaying)
             {
                 squareClicked = checkSquareNumber(x, y);
                 quit = gameLogic(squareClicked, turnNumber, overallWinner, tieHappen);
+                
+                //Winner was Decided
+                if (quit == true && tieHappen == false)
+                {
+                    if (overallWinner == 'X')
+                    {
+                        applySurface(170, 250, winnerImageX, screen);
+                        applySurface(365, 325, playAgain, screen);
+                        SDL_Flip(screen);
+                        //                    if (event.type == SDL_MOUSEBUTTONDOWN)
+                        //                    {
+                        //                        if (event.button.button == SDL_BUTTON_LEFT)
+                        //                        {
+                        //                            x = event.button.x;
+                        //                            y = event.button.y;
+                        //
+                        //                            if (willPlayAgain(x, y))
+                        //                            {
+                        //                                std::cout << "play again button was clicked";
+                        //                                keepPlaying = true;
+                        //                            }
+                        //                            else {
+                        //                                keepPlaying = false;
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                    if (playAgain == false)
+                        //                    {
+                        //                        quitProgram();
+                        //                    }
+                    }
+                    
+                    if (overallWinner == 'O')
+                    {
+                        applySurface(170, 250, winnerImageO, screen);
+                        applySurface(365, 325, playAgain, screen);
+                        SDL_Flip(screen);
+                        //                    if (event.type == SDL_MOUSEBUTTONDOWN)
+                        //                    {
+                        //                        if (event.button.button == SDL_BUTTON_LEFT)
+                        //                        {
+                        //                            x = event.button.x;
+                        //                            y = event.button.y;
+                        //
+                        //                            if (willPlayAgain(x, y))
+                        //                            {
+                        //                                keepPlaying = true;
+                        //                            }
+                        //                            else {
+                        //                                keepPlaying = false;
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                    if (playAgain == false)
+                        //                    {
+                        //                        quitProgram();
+                        //                    }
+                    }
+                }
+                
+                else if (overallWinner == 'N')
+                {
+                    std::cout<<overallWinner<<tieHappen;
+                    applySurface(170, 250, tieImage, screen);
+                    applySurface(365, 325, playAgain, screen);
+                    //                if (event.type == SDL_MOUSEBUTTONDOWN)
+                    //                {
+                    //                    if (event.button.button == SDL_BUTTON_LEFT)
+                    //                    {
+                    //                        x = event.button.x;
+                    //                        y = event.button.y;
+                    //                        
+                    //                        if (willPlayAgain(x, y))
+                    //                        {
+                    //                            keepPlaying = true;
+                    //                        }
+                    //                        else {
+                    //                            keepPlaying = false;
+                    //                        }
+                    //                    }
+                    //                }
+                    //                if (playAgain == false)
+                    //                {
+                    //                    quitProgram();
+                    //                }
+                }
+
             }
             else if (willPlayAgain(x, y) == true)
             {
@@ -512,97 +599,9 @@ void handleEvents(SDL_Event event, bool keepPlaying)
                 clearCharArray(boardO);
                 clearCharArray(boardX);
                 turnNumber = 0;
+                keepPlaying = true;
                 boardFilled = false;
-                //playAgain = false;
             }
-            
-            //Winner was Decided
-            if (quit == true && tieHappen == false)
-            {
-                if (overallWinner == 'X')
-                {
-                    applySurface(170, 250, winnerImageX, screen);
-                    applySurface(365, 325, playAgain, screen);
-                    SDL_Flip(screen);
-//                    if (event.type == SDL_MOUSEBUTTONDOWN)
-//                    {
-//                        if (event.button.button == SDL_BUTTON_LEFT)
-//                        {
-//                            x = event.button.x;
-//                            y = event.button.y;
-//                            
-//                            if (willPlayAgain(x, y))
-//                            {
-//                                std::cout << "play again button was clicked";
-//                                keepPlaying = true;
-//                            }
-//                            else {
-//                                keepPlaying = false;
-//                            }
-//                        }
-//                    }
-//                    if (playAgain == false)
-//                    {
-//                        quitProgram();
-//                    }
-                }
-                
-                if (overallWinner == 'O')
-                {
-                    applySurface(170, 250, winnerImageO, screen);
-                    applySurface(365, 325, playAgain, screen);
-                    SDL_Flip(screen);
-//                    if (event.type == SDL_MOUSEBUTTONDOWN)
-//                    {
-//                        if (event.button.button == SDL_BUTTON_LEFT)
-//                        {
-//                            x = event.button.x;
-//                            y = event.button.y;
-//                            
-//                            if (willPlayAgain(x, y))
-//                            {
-//                                keepPlaying = true;
-//                            }
-//                            else {
-//                                keepPlaying = false;
-//                            }
-//                        }
-//                    }
-//                    if (playAgain == false)
-//                    {
-//                        quitProgram();
-//                    }
-                }
-            }
-
-            else if (overallWinner == 'N')
-            {
-                std::cout<<overallWinner<<tieHappen;
-                applySurface(170, 250, tieImage, screen);
-                applySurface(365, 325, playAgain, screen);
-//                if (event.type == SDL_MOUSEBUTTONDOWN)
-//                {
-//                    if (event.button.button == SDL_BUTTON_LEFT)
-//                    {
-//                        x = event.button.x;
-//                        y = event.button.y;
-//                        
-//                        if (willPlayAgain(x, y))
-//                        {
-//                            keepPlaying = true;
-//                        }
-//                        else {
-//                            keepPlaying = false;
-//                        }
-//                    }
-//                }
-//                if (playAgain == false)
-//                {
-//                    quitProgram();
-//                }
-            }
-            
-
         }
     }
 }
@@ -668,7 +667,9 @@ int main(int argc, char ** argv)
                     playAgain = false;
                     quit = true;
                 }
-                handleEvents(event, &playAgain);
+                
+                else
+                    handleEvents(event, &playAgain);
             }
         }
     }
