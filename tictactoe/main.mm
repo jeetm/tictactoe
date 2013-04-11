@@ -3,8 +3,8 @@
 //  Created by Jeet Mehta on 2013-04-04.
 //  Copyright (c) 2013 Jeet Mehta. All rights reserved.
 
+//Include all necessary libraries and sub-systems
 #include <iostream>
-#include <vector>
 #include <SDL/SDL.h>
 #include <SDL_image/SDL_image.h>
 #include <SDL_ttf/SDL_ttf.h>
@@ -14,25 +14,22 @@ const int SCREEN_WIDTH = 600;
 const int SCREEN_HEIGHT = 600;
 const int SCREEN_BPP = 32;
 
-//Declaring the grid, screen and x/o images
+//Declaring the grid, screen and X/O images - Primary UI Aspects
 SDL_Surface* screen = NULL;
 SDL_Surface* xToken = NULL;
 SDL_Surface* oToken = NULL;
 SDL_Surface* gameGrid = NULL;
 SDL_Surface* playAgain = NULL;
 
-//Font Declaration
+//Font and Image Declaration - All Other UI Related Aspects
 TTF_Font* myfont = NULL;
 SDL_Surface* titleMessage = NULL;
-SDL_Surface* winnerMessageX = NULL;
 SDL_Surface* winnerImageX = NULL;
 SDL_Surface* winnerImageO = NULL;
 SDL_Surface* tieImage = NULL;
-SDL_Surface* winnerMessageO = NULL;
-SDL_Surface* drawMessage = NULL;
 SDL_Color titleColor = {255, 255, 255};
 
-//Game-Related Variables
+//Game-Related Variables - Essential for the program
 bool squaresOccupied[10] = {false};
 char boardX[3][3];
 char boardO[3][3];
@@ -42,7 +39,7 @@ bool boardFilled;
 //Event Declaration
 SDL_Event event;
 
-//Initialization Function
+//Initialization Function - Initializes all necessary sub-systems and makes them available for use
 bool init()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
@@ -67,7 +64,7 @@ bool init()
     return true;
 }
 
-//Load Image Function
+//Load Image Function - Loads the input image, and color key's, if necessary, with the specified colors
 SDL_Surface* loadImages(std:: string filename, bool colorKey, int red, int blue, int green)
 {
     SDL_Surface* inputImage = NULL;
@@ -81,7 +78,6 @@ SDL_Surface* loadImages(std:: string filename, bool colorKey, int red, int blue,
         
         if (outputImage != NULL)
         {
-           //Code for Color keying
             if (colorKey == true)
             {
                 Uint32 key = SDL_MapRGB(outputImage->format, red, blue, green);
@@ -144,7 +140,7 @@ int checkSquareNumber (int locationX, int locationY)
     return 0;
 }
 
-//Function that checks if playAgain was clicked
+//Function that checks if the Play Again button was clicked
 bool willPlayAgain(int locationX, int locationY)
 {
     if (locationX > 365 && locationX < 465 && (locationY > 325 && locationY < 367))
@@ -154,7 +150,7 @@ bool willPlayAgain(int locationX, int locationY)
     return false;
 }
 
-//Function that takes in images and offsets and applies them
+//Function that takes in images and offsets and applies them on the specified destination
 bool applySurface (int x, int y, SDL_Surface* source, SDL_Surface* dest)
 {
     SDL_Rect offset;
@@ -225,7 +221,7 @@ void numConverter (int squareNumber, int &offsetX, int &offsetY)
 int CheckForWinner( char spaces[][3] )
 {
 	//Check Rows
-	for( int i = 0; i < 3; i++)
+	for(int i = 0; i < 3; i++)
 	{
         for (int j = 0; j < 3; j+=3)
         {
@@ -237,16 +233,17 @@ int CheckForWinner( char spaces[][3] )
 	}
     
     //Check Columns
-    for( int i = 0; i < 3; i++)
+    for(int i = 0; i < 3; i++)
 	{
         for (int j = 0; j < 3; j++)
         {
-            if ( spaces[i][j] == 'X' && spaces[i+1][j] == 'X' && spaces[i+2][j] == 'X')
+            if (spaces[i][j] == 'X' && spaces[i+1][j] == 'X' && spaces[i+2][j] == 'X')
                 return 1;
-            else if ( spaces[i][j] == 'O' && spaces[i+1][j] == 'O' && spaces[i+2][j] == 'O')
+            else if (spaces[i][j] == 'O' && spaces[i+1][j] == 'O' && spaces[i+2][j] == 'O')
                 return 2;
-            i=0;
+            i = 0;
         }
+        
         break;
 	}
     
@@ -257,31 +254,10 @@ int CheckForWinner( char spaces[][3] )
         return 2;
     else if (spaces[0][2] == 'X' && spaces[1][1] == 'X' && spaces[2][0] == 'X')
         return 1;
-    else if (spaces[0][2] == '0' && spaces[1][1] == 'O' && spaces[2][0] == 'O')
+    else if (spaces[0][2] == 'O' && spaces[1][1] == 'O' && spaces[2][0] == 'O')
         return 2;
                                                                                                                                                                                                                                                                                                                                     
     return 0;
-}
-
-//Function that prints to the console all elements of an array, needed for de-bugging purposes
-void printVector( const std::vector<int> &array)
-{
-    for(int i=0; i<array.size(); ++i)
-        std::cout << array[i] << " ";
-    std::cout <<std::endl;
-    std::cout << "----------------"<<std::endl;
-}
-
-void printArray(int array[][2])
-{
-    //int num = sizeof(array) / sizeof(array[0]);
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j=0;j < 2; j++)
-        {
-            std::cout << array[i][j];
-        }
-    }
 }
 
 //Function that converts board numbers to array locations
@@ -356,17 +332,7 @@ bool gameFinished()
     return false;
 }
 
-//Function that clears the elements of a 1-D integer array
-void clearOneDArray(int array[])
-{
-    int size = sizeof(array) / sizeof(int);
-    for (int i = 0; i < size; i++)
-    {
-        array[i] = 0;
-    }
-}
-
-//Function that clears all the elements of a 3-D char array
+//Function that clears all the elements of the boardX and boardO arrays, which are all 3 x 3, two-dimensional arrays
 void clearCharArray (char array[][3])
 {
     for (int i = 0; i < 3; i++)
@@ -378,7 +344,7 @@ void clearCharArray (char array[][3])
     }
 }
 
-//Function that sets all elements of a bool array to false
+//Function that sets all elements of the squaresOccupied array, which is one-dimensional.
 void clearBoolArray (bool array[])
 {
     for (int i = 0; i < 10; i++)
@@ -387,7 +353,7 @@ void clearBoolArray (bool array[])
     }
 }
 
-//Function that handles game logic
+//Function that handles all related game logic
 bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccured)
 {
     int winner;
@@ -416,17 +382,14 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                     winner = CheckForWinner(boardO);
                     if (winner == 2)
                     {
-                        std::cout << "O has won!";
                         resultingWinner = 'O';
                         tieOccured = false;
                         return true;
                     }
                     else if (winner == 0 && boardFilled == true)
                     {
-                        std::cout << "It's a tie!";
                         resultingWinner = 'N';
                         tieOccured = true;
-                        std::cout << tieOccured;
                         return false;
                     }
                 }
@@ -442,7 +405,6 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                 {
                     numConverter(squareNum, offsetX, offsetY);
                     applySurface(offsetX, offsetY, xToken, screen);
-                    std::cout << offsetX << offsetY;
                     if (counter > 1)
                         counter = 0;
                     turnNum++;
@@ -455,14 +417,12 @@ bool gameLogic(int squareNum, int &turnNum, char &resultingWinner, bool &tieOccu
                     winner = CheckForWinner(boardX);
                     if (winner == 1)
                     {
-                        std::cout << "X has won";
                         resultingWinner = 'X';
                         tieOccured = false;
                         return true;
                     }
                     else if (winner == 0 && boardFilled == true)
                     {
-                        std::cout << "It's a tie!";
                         resultingWinner = 'N';
                         tieOccured = true;
                         return false;
@@ -510,27 +470,6 @@ void handleEvents(SDL_Event event, bool keepPlaying)
                         applySurface(170, 250, winnerImageX, screen);
                         applySurface(365, 325, playAgain, screen);
                         SDL_Flip(screen);
-                        //                    if (event.type == SDL_MOUSEBUTTONDOWN)
-                        //                    {
-                        //                        if (event.button.button == SDL_BUTTON_LEFT)
-                        //                        {
-                        //                            x = event.button.x;
-                        //                            y = event.button.y;
-                        //
-                        //                            if (willPlayAgain(x, y))
-                        //                            {
-                        //                                std::cout << "play again button was clicked";
-                        //                                keepPlaying = true;
-                        //                            }
-                        //                            else {
-                        //                                keepPlaying = false;
-                        //                            }
-                        //                        }
-                        //                    }
-                        //                    if (playAgain == false)
-                        //                    {
-                        //                        quitProgram();
-                        //                    }
                     }
                     
                     if (overallWinner == 'O')
@@ -538,54 +477,13 @@ void handleEvents(SDL_Event event, bool keepPlaying)
                         applySurface(170, 250, winnerImageO, screen);
                         applySurface(365, 325, playAgain, screen);
                         SDL_Flip(screen);
-                        //                    if (event.type == SDL_MOUSEBUTTONDOWN)
-                        //                    {
-                        //                        if (event.button.button == SDL_BUTTON_LEFT)
-                        //                        {
-                        //                            x = event.button.x;
-                        //                            y = event.button.y;
-                        //
-                        //                            if (willPlayAgain(x, y))
-                        //                            {
-                        //                                keepPlaying = true;
-                        //                            }
-                        //                            else {
-                        //                                keepPlaying = false;
-                        //                            }
-                        //                        }
-                        //                    }
-                        //                    if (playAgain == false)
-                        //                    {
-                        //                        quitProgram();
-                        //                    }
                     }
                 }
                 
                 else if (overallWinner == 'N')
                 {
-                    std::cout<<overallWinner<<tieHappen;
                     applySurface(170, 250, tieImage, screen);
                     applySurface(365, 325, playAgain, screen);
-                    //                if (event.type == SDL_MOUSEBUTTONDOWN)
-                    //                {
-                    //                    if (event.button.button == SDL_BUTTON_LEFT)
-                    //                    {
-                    //                        x = event.button.x;
-                    //                        y = event.button.y;
-                    //                        
-                    //                        if (willPlayAgain(x, y))
-                    //                        {
-                    //                            keepPlaying = true;
-                    //                        }
-                    //                        else {
-                    //                            keepPlaying = false;
-                    //                        }
-                    //                    }
-                    //                }
-                    //                if (playAgain == false)
-                    //                {
-                    //                    quitProgram();
-                    //                }
                 }
 
             }
@@ -618,7 +516,6 @@ bool loadFiles()
     
     if (gameGrid == NULL || xToken == NULL || oToken == NULL || winnerImageO == NULL || winnerImageX == NULL || tieImage == NULL)
     {
-        std::cout << "some images didn't load";
         return false;
     }
     
