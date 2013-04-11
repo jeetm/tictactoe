@@ -498,6 +498,7 @@ void handleEvents(SDL_Event event)
                 
                 quitProgram();
             }
+
             else if (overallWinner == 'N')
             {
                 std::cout<<overallWinner<<tieHappen;
