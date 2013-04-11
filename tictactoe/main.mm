@@ -499,7 +499,7 @@ void handleEvents(SDL_Event event)
                 quitProgram();
             }
             
-            else if (quit == true && tieHappen == true)
+            else if (overallWinner == 'N')
             {
                 applySurface(170, 250, tieImage, screen);
                 SDL_Delay(4000);
