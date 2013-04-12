@@ -18,7 +18,7 @@ Resources:
   The sprites for the grid, as well as both the X/O tokens can be found here: http://www.sdltutorials.com/sdl-tutorial-tic-tac-toe
     Note that only the images were used from the link above. The creation of the game was an independant effort, otherwise it would defeat the purpose of practice if I merely copied a tutorial.
   
-  The ribbon and star used in the end of game dialog boxes was found using a simple google images search
+  The ribbon and star used in the end of game dialog boxes were found using a simple google images search
   
 Experience:
 
