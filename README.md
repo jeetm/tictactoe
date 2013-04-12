@@ -7,7 +7,7 @@ Brief Description:
   
 Game-Play:
 
-  The game is solely multi-player, one controlling the X-Token and another playing as the O-Token. Basically the goal of the game is to produce 3 consecutive identical tokens. For example, three in a row 'X' tokens vertically, horizontally, or diagonally.
+  The game is solely multi-player, one controlling the X-Token and another playing as the O-Token. Basically the goal of the game is to produce 3 consecutive identical tokens. For example, three in a row 'X' tokens vertically, horizontally, or diagonally. Detailed rules can be found here: http://boardgames.about.com/od/paperpencil/a/tic_tac_toe.htm
   
 Grid:
 
