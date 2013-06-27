@@ -1,4 +1,4 @@
-Tic-Tac-Toe
+Tic-Tac-Toe - SDL
 =========
 <b>Note:</b> j4mehta is another GitHub account which I had while I was working at Kik Interactive during a co-op term. I have transferred the repositories for the personal projects which I worked on during the time I was there to this new account, which explains why the account activity for jeetmehta seems less in comparison to the amount of work shown.<br>
 
